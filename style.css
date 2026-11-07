@@ -1,0 +1,88 @@
+@font-face {
+  font-family: "Nitti";
+  src: url("Assets/Nitti-Normal.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+  font-family: "Nitti", monospace;
+  font-size: 18px;
+  color: #171717;
+  background: #fff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #fff;
+}
+
+.page {
+  width: min(100% - 48px, 760px);
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ececec;
+}
+
+.wordmark {
+  font-size: 18px;
+  letter-spacing: 0.08em;
+}
+
+.clear-button {
+  padding: 8px 0 8px 12px;
+  border: 0;
+  background: transparent;
+  color: #777;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.clear-button:hover { color: #171717; }
+
+.writing-area {
+  flex: 1;
+  min-height: 65vh;
+  padding: 36px 0;
+  outline: none;
+  font: inherit;
+  font-size: 18px;
+  line-height: 1.65;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  caret-color: #171717;
+}
+
+.writing-area:empty::before {
+  content: attr(data-placeholder);
+  color: #b5b5b5;
+  pointer-events: none;
+}
+
+.footer {
+  padding: 16px 0 24px;
+  color: #aaa;
+  font-size: 13px;
+  border-top: 1px solid #ececec;
+}
+
+@media (max-width: 480px) {
+  .page { width: calc(100% - 32px); }
+  .writing-area { padding-top: 24px; }
+}
