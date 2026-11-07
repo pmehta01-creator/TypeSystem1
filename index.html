@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Type</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <span class="wordmark">TYPE</span>
+      <button class="clear-button" type="button" id="clear">Clear</button>
+    </header>
+    <section
+      class="writing-area"
+      id="editor"
+      contenteditable="true"
+      role="textbox"
+      aria-label="Writing area"
+      aria-multiline="true"
+      data-placeholder="Start typing…"
+      spellcheck="false"
+      autofocus
+    ></section>
+    <footer class="footer">A quiet space to write.</footer>
+  </main>
+  <script>
+    const editor = document.getElementById('editor');
+    editor.addEventListener('beforeinput', (event) => {
+      if (event.inputType !== 'insertText' || !event.data || event.data.includes('\n')) return;
+      event.preventDefault();
+      const selection = window.getSelection();
+      if (!selection || !selection.rangeCount) return;
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+      for (const character of event.data) {
+        const line = document.createElement('div');
+        line.textContent = character;
+        range.insertNode(line);
+        range.setStartAfter(line);
+        range.collapse(true);
+      }
+      selection.removeAllRanges();
+      selection.addRange(range);
+    });
+    document.getElementById('clear').addEventListener('click', () => {
+      editor.replaceChildren();
+      editor.focus();
+    });
+  </script>
+</body>
+</html>
